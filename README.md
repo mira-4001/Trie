@@ -1,18 +1,26 @@
 # Trie
-En este repositorio se busca explicar Trie // Completar descripcion mas tarde
+## Integrantes
+1. [Num cuenta ] [Nombre]
+2. [Num cuenta ] [Nombre]
+3. [Num cuenta ] [Nombre]
+4. [Num cuenta ] [Nombre]
+   
+## Objetivo 
 
-Holaaaaaaa
-holaaaaaa
+## Concepto 
 
-Concepto: árbol de prefijos.
+## Contexto 
+### Antecedentes 
+### Desarrollo 
+### Actualidad 
 
-Objetivo: mostrar cómo buscar palabras y prefijos en un tiempo que depende de la longitud de la palabra y no de cuántas haya guardadas.
+## Teoría 
+### Paso a paso teórico 
 
-Se relaciona con: Árboles y BST, y búsqueda por hash.
+## Demostración (Ejemplos de resultados)
 
-Qué se busca:
+## Análisis de resultados
 
-Estructura del nodo e inserción de palabras.
-Búsqueda por palabra completa y por prefijo.
-Comparación con hash y BST para búsqueda por prefijo.
-Demo de autocompletado en Python.
+## Conclusiones
+
+## Referencias 
