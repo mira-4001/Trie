@@ -18,6 +18,10 @@
 ### Paso a paso teórico 
 
 ## Demostración (Ejemplos de resultados)
+Primero formaremos un trie secillo (sin code), con las letras del abecedario inglés $\sum = {a,b,c,...,y,z}$
+Lo formaremos con las siguientes palabras: [can,monkey,tree,cat,money,pencil,penny]
+![alt text](image.png)
+
 
 ## Análisis de resultados
 
