@@ -1,15 +1,17 @@
 # Trie
 ## Integrantes
 1. [426061748] [Hernandez Lopez Alejandro]
-2. [Num cuenta ] [Nombre]
+2. [323038320] [Hernandez Soria Miriam]
 3. [Num cuenta ] [Nombre]
 4. [Num cuenta ] [Nombre]
    
 ## Objetivo 
 Analizar el funcionamiento, la estructura interna y la complejidad del Trie, implementando sus operaciones  (inserción, búsqueda,eliminación y búsqueda por prefijo) para demostrar su eficiencia y como lo podemos aplicar en la resolución de problemas de procesamiento de cadenas y autocompletado.
 ## Concepto 
-
+Un trie es una estructura de datos que utiliza las partes de la clave para organizar y buscar entre la colección de datos que almacena, o bien, en otras palabras, un trie es un árbol de prefijos. 
 ## Contexto 
+El nombre trie proviene de retrieval que significa recuperación. Se pronuncia como try para distinguirlo de tree. 
+
 ### Antecedentes 
 ### Desarrollo 
 ### Actualidad 
@@ -39,6 +41,7 @@ Por último para hacer una demostración resolveremos el problema Leetcode 1268 
 
 
 -->
+
 
 ## Análisis de resultados
 
