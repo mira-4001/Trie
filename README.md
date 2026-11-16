@@ -7,12 +7,20 @@
    
 ## Objetivo 
 Analizar el funcionamiento, la estructura interna y la complejidad del Trie, implementando sus operaciones  (inserción, búsqueda,eliminación y búsqueda por prefijo) para demostrar su eficiencia y como lo podemos aplicar en la resolución de problemas de procesamiento de cadenas y autocompletado.
+
 ## Concepto 
-Un trie es una estructura de datos que utiliza las partes de la clave para organizar y buscar entre la colección de datos que almacena, o bien, en otras palabras, un trie es un árbol de prefijos. 
+Un trie es una estructura de datos (una forma de organizar información dentro de un programa) que utiliza las partes de la clave para organizar y buscar entre la colección de datos que almacena. O, dicho de otra manera, un trie es un árbol de prefijos (prefijo proviene del latín praefixus (‘colocado delante’), es el comienzo de las palabras). 
+
+Cuando buscas palabras en un diccionario haces uso de los prefijos, ya que en lugar de buscar en primera instancia la palabra por todas las páginas del diccionario, primero buscas la primera letra, luego la segunda y así sucesivamente hasta obtener la palabra, el trie funciona de forma similar en una computadora. 
+
 ## Contexto 
-El nombre trie proviene de retrieval que significa recuperación. Se pronuncia como try para distinguirlo de tree. 
+El nombre trie proviene de retrieval, que en inglés significa “recuperación” (recuperar información guardada). Se pronuncia como try para distinguirlo de tree (“árbol” en inglés, es la estructura de datos en la que se basa el trie), porque los dos suenan similar y eso generaba confusiones.
 
 ### Antecedentes 
+Los tries aparecieron en 1959, el investigador René de la Briandais los propuso de forma independiente, y poco después Edward Fredkin los desarrolló por su cuenta. El nombre trie lo propuso Fredkin hacia 1960.
+
+En esa época, a comparación con la actualidad las computadoras eran muy lentas y tenían poca memoria, por lo que buscar formas de optimizar el manejo de datos, búsquedas y etc. era de suma importancia. Buscar una palabra en una lista enorme de palabras, como en un diccionario, comparándola una a una era sumamente costoso. Se necesitaba por ello una forma de guardar palabras de tal forma que buscarlas fuese más sencillo y rápido, la idea para solventar esta necesidad fue aprovechar los prefijos, ya que muchas palabras los comparten, por ejemplo: "inolvidable", "innombrable" , "insaciable" que comparten el prefijo "in", entonces ya no haria falta guardar in tres veces.
+
 ### Desarrollo 
 ### Actualidad 
 
