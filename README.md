@@ -22,7 +22,45 @@ Los tries aparecieron en 1959, el investigador René de la Briandais los propuso
 En esa época, a comparación con la actualidad las computadoras eran muy lentas y tenían poca memoria, por lo que buscar formas de optimizar el manejo de datos, búsquedas y etc. era de suma importancia. Buscar una palabra en una lista enorme de palabras, como en un diccionario, comparándola una a una era sumamente costoso. Se necesitaba por ello una forma de guardar palabras de tal forma que buscarlas fuese más sencillo y rápido, la idea para solventar esta necesidad fue aprovechar los prefijos, ya que muchas palabras los comparten, por ejemplo: "inolvidable", "innombrable" , "insaciable" que comparten el prefijo "in", entonces ya no haria falta guardar in tres veces.
 
 ### Desarrollo 
+Desde su aparición, el trie fue creciendo y mejorando con el tiempo.
+
+Se volvió una estructura de uso general. Al principio se pensó para guardar palabras, pero después se vio que servía para cualquier clave formada por una secuencia de símbolos de un conjunto limitado (lo que se llama un alfabeto): letras, números, códigos o rutas.
+
+Se formalizó con las matemáticas. Los estudiosos descubrieron que un trie es un caso especial de un autómata finito (un modelo teórico, parecido a un mapa de estados por los que se va pasando según los símbolos que se leen). Esto le dio una base sólida para ser analizado y comparado con otras estructuras.
+
+Se compararon sus ventajas con las de otras estructuras. Frente a otras formas de guardar información, el trie destacó porque su velocidad depende de la longitud de la palabra buscada y no de cuántas palabras haya guardadas. También destacó por permitir búsquedas por prefijo, algo que otras estructuras no hacen bien.
+
+Aparecieron distintas versiones para ahorrar espacio. Con los años se probaron varias maneras de programar un trie, buscando un equilibrio entre rapidez y uso de memoria. Una de las más conocidas es el árbol ternario de búsqueda, que combina la idea del trie con la de otro tipo de árbol.
+
+Nació la versión comprimida: PATRICIA. En 1968, Donald R. Morrison presentó una mejora llamada PATRICIA (siglas en inglés de Practical Algorithm To Retrieve Information Coded In Alphanumeric, que significa “algoritmo práctico para recuperar información codificada en alfanumérico”, es decir, letras y números). Su objetivo fue evitar gastar espacio en partes del árbol donde no hay ninguna bifurcación (en palabras técnicas, reduce su altura). También se le conoce como radix tree (“árbol de raíces”).
+
+Surgieron variantes para otros problemas. Una de ellas es el trie de sufijos (y su versión comprimida, el árbol de sufijos), que en lugar de guardar palabras guarda todos los finales posibles de un texto largo.
+
 ### Actualidad 
+Hoy los tries y sus variantes están presentes en muchas cosas que usamos todos los días:
+## Autocompletado.
+Cuando la barra de búsqueda te sugiere mientras escribes, o cuando una terminal (la ventana donde se escriben comandos) completa un comando, suele haber un trie detrás.
+
+
+## Corrección ortográfica y teclado del celular.
+Sirven para saber rápidamente si lo que escribes puede convertirse en una palabra válida y qué sugerencias ofrecer.
+
+## Juegos de palabras y teclados antiguos.
+Los resolutores de Scrabble y el sistema T9 (aquellos teléfonos donde cada tecla representaba varias letras) los usaban para validar palabras.
+
+## Redes de internet. 
+Los routers (aparatos que deciden por dónde viaja cada paquete de datos) usan variantes tipo PATRICIA para elegir la mejor ruta. Tratan cada bit (el 0 o el 1 de una dirección IP, que es como la “dirección postal” de un dispositivo) como si fuera una letra, y buscan la coincidencia de prefijo más larga.
+
+## DNS y Ethereum.
+El DNS (el sistema que convierte “www.wikiejemplo.com” en la dirección real del servidor) y Ethereum (una red de criptomonedas) usan estructuras derivadas de PATRICIA.
+
+## Buscadores de texto.
+Apache Lucene, la base de motores como Elasticsearch y Solr, usa estructuras compactas derivadas de los tries para indexar (organizar el texto para encontrarlo rápido) enormes cantidades de información.
+
+## Genética y buscadores de código.
+Las variantes de sufijos permiten comprobar si una frase o secuencia aparece dentro de un texto larguísimo, como el ADN (el material genético).
+
+Un trie sencillo puede gastar bastante memoria cuando el diccionario es muy grande. Por eso, en el mundo real se usan mucho las versiones comprimidas, y se acostumbra medir el consumo real antes de decidir cuál usar.
 
 ## Teoría 
 ### Paso a paso teórico 
