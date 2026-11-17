@@ -3,7 +3,7 @@
 1. [426061748] [Hernandez Lopez Alejandro]
 2. [323038320] [Hernandez Soria Miriam]
 3. [323135340] [Flores Quero Aarón]
-4. [Num cuenta ] [Nombre]
+4. [323164029] [Rodríguez Tlapalamatl Diego]
    
 ## Objetivo 
 Analizar el funcionamiento, la estructura interna y la complejidad del Trie, implementando sus operaciones  (inserción, búsqueda,eliminación y búsqueda por prefijo) para demostrar su eficiencia y como lo podemos aplicar en la resolución de problemas de procesamiento de cadenas y autocompletado.
