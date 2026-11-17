@@ -39,26 +39,26 @@ Surgieron variantes para otros problemas. Una de ellas es el trie de sufijos (y 
 ### Actualidad 
 Hoy los tries y sus variantes están presentes en muchas cosas que usamos todos los días:
 
-## Autocompletado.
+#### Autocompletado.
 Cuando la barra de búsqueda te sugiere mientras escribes, o cuando una terminal (la ventana donde se escriben comandos) completa un comando, suele haber un trie detrás.
 
 
-## Corrección ortográfica y teclado del celular.
+#### Corrección ortográfica y teclado del celular.
 Sirven para saber rápidamente si lo que escribes puede convertirse en una palabra válida y qué sugerencias ofrecer.
 
-## Juegos de palabras y teclados antiguos.
+#### Juegos de palabras y teclados antiguos.
 Los resolutores de Scrabble y el sistema T9 (aquellos teléfonos donde cada tecla representaba varias letras) los usaban para validar palabras.
 
-## Redes de internet. 
+#### Redes de internet. 
 Los routers (aparatos que deciden por dónde viaja cada paquete de datos) usan variantes tipo PATRICIA para elegir la mejor ruta. Tratan cada bit (el 0 o el 1 de una dirección IP, que es como la “dirección postal” de un dispositivo) como si fuera una letra, y buscan la coincidencia de prefijo más larga.
 
-## DNS y Ethereum.
+#### DNS y Ethereum.
 El DNS (el sistema que convierte “www.wikiejemplo.com” en la dirección real del servidor) y Ethereum (una red de criptomonedas) usan estructuras derivadas de PATRICIA.
 
-## Buscadores de texto.
+#### Buscadores de texto.
 Apache Lucene, la base de motores como Elasticsearch y Solr, usa estructuras compactas derivadas de los tries para indexar (organizar el texto para encontrarlo rápido) enormes cantidades de información.
 
-## Genética y buscadores de código.
+#### Genética y buscadores de código.
 Las variantes de sufijos permiten comprobar si una frase o secuencia aparece dentro de un texto larguísimo, como el ADN (el material genético).
 
 Un trie sencillo puede gastar bastante memoria cuando el diccionario es muy grande. Por eso, en el mundo real se usan mucho las versiones comprimidas, y se acostumbra medir el consumo real antes de decidir cuál usar.
