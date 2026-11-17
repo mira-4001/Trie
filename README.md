@@ -2,7 +2,7 @@
 ## Integrantes
 1. [426061748] [Hernandez Lopez Alejandro]
 2. [323038320] [Hernandez Soria Miriam]
-3. [Num cuenta ] [Nombre]
+3. [323135340] [Flores Quero Aarón]
 4. [Num cuenta ] [Nombre]
    
 ## Objetivo 
