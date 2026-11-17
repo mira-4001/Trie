@@ -32,12 +32,13 @@ Se compararon sus ventajas con las de otras estructuras. Frente a otras formas d
 
 Aparecieron distintas versiones para ahorrar espacio. Con los años se probaron varias maneras de programar un trie, buscando un equilibrio entre rapidez y uso de memoria. Una de las más conocidas es el árbol ternario de búsqueda, que combina la idea del trie con la de otro tipo de árbol.
 
-Nació la versión comprimida: PATRICIA. En 1968, Donald R. Morrison presentó una mejora llamada PATRICIA (siglas en inglés de Practical Algorithm To Retrieve Information Coded In Alphanumeric, que significa “algoritmo práctico para recuperar información codificada en alfanumérico”, es decir, letras y números). Su objetivo fue evitar gastar espacio en partes del árbol donde no hay ninguna bifurcación (en palabras técnicas, reduce su altura). También se le conoce como radix tree (“árbol de raíces”).
+Nació la versión comprimida: PATRICIA. En 1968, Donald R. Morrison presentó una mejora llamada PATRICIA (siglas en inglés de Practical Algorithm To Retrieve Information Coded In Alphanumeric, que significa “algoritmo práctico para recuperar información codificada en alfanumérico”, es decir, letras y números). Su objetivo fue evitar gastar espacio en partes del árbol donde no hay ninguna ramificación. También se le conoce como radix tree (“árbol de raíces”).
 
 Surgieron variantes para otros problemas. Una de ellas es el trie de sufijos (y su versión comprimida, el árbol de sufijos), que en lugar de guardar palabras guarda todos los finales posibles de un texto largo.
 
 ### Actualidad 
 Hoy los tries y sus variantes están presentes en muchas cosas que usamos todos los días:
+
 ## Autocompletado.
 Cuando la barra de búsqueda te sugiere mientras escribes, o cuando una terminal (la ventana donde se escriben comandos) completa un comando, suele haber un trie detrás.
 
