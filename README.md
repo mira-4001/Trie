@@ -180,6 +180,44 @@ def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[s
 ```
 *   **Conexión con el concepto teórico:** Anteriormente se menciona que un trie almacena información basándose en alfabetos y secuencias. En el codigo, se piden las palabras ordenadas lexicográficamente(en este caso, orden alfabético). Al ordenar el arreglo inicial (`products.sort()`), nos garantizamos que cuando pasamos por un nodo y guardamos las palabras en `node.suggestions`, las primeras 3 palabras que pasen por ahí siempre serán, por defecto, las 3 menores lexicográficamente. Esta es una optimización que une el concepto de ordenamiento de cadenas con la estructura en árbol del Trie.
 
+### 5. Análisis de Resultados en Terminal (Ejecución Práctica)
+
+Para visualizar cómo interactúa el código con los datos, simulemos la ejecución en consola.
+
+**Datos de entrada:**
+*   `products`: `["mobile", "mouse", "moneypot", "monitor", "mousepad"]`
+*   `searchWord`: `"mouse"`
+
+### Paso 1: Ordenamiento Interno
+El método `suggestedProducts` primero ejecuta `products.sort()`. Internamente, el arreglo queda así:
+`["mobile", "moneypot", "monitor", "mouse", "mousepad"]`
+
+### Paso 2: Creación del Trie e Inserción
+El código inserta las palabras. Debido a la línea `if len(node.suggestions) < 3:`, el Trie almacena esto en sus nodos al recorrer la letra **'m'** y **'o'** (prefijo `"mo"`):
+*   Inserta "mobile" -> `node.suggestions` tiene `["mobile"]`
+*   Inserta "moneypot" -> `node.suggestions` tiene `["mobile", "moneypot"]`
+*   Inserta "monitor" -> `node.suggestions` tiene `["mobile", "moneypot", "monitor"]`
+*   Inserta "mouse" -> *El límite de 3 se alcanzó, se ignora en este nodo.*
+*   Inserta "mousepad" -> *El límite de 3 se alcanzó, se ignora en este nodo.*
+
+### Paso 3: Salida en la Terminal
+Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el siguiente resultado en la terminal:
+
+```console
+[
+  ["mobile","moneypot","monitor"],    # Al escribir 'm'
+  ["mobile","moneypot","monitor"],    # Al escribir 'm' -> 'o'
+  ["mouse","mousepad"],               # Al escribir 'm' -> 'o' -> 'u'
+  ["mouse","mousepad"],               # Al escribir 'm' -> 'o' -> 'u' -> 's'
+  ["mouse","mousepad"]                # Al escribir 'm' -> 'o' -> 'u' -> 's' -> 'e'
+]
+```
+
+**Análisis de esta salida:**
+1. **Límites exactos:** Observamos perfectamente la restricción de máximo 3 sugerencias en los prefijos `"m"` y `"mo"`. Aunque hay 5 productos que empiezan con `"mo"`, la terminal arroja exactamente los 3 primeros alfabéticamente.
+2. **Filtrado dinámico:** Al teclear la letra `"u"`, los productos `"mobile"`, `"moneypot"` y `"monitor"` ya no coinciden. El Trie avanza a un nuevo subárbol donde solo se insertaron `"mouse"` y `"mousepad"`.
+3. **Eficiencia en memoria y tiempo:** Tal como se promete en la teoría, el programa no tuvo que buscar entre todos los productos de nuevo cada vez que se escribió una letra; solo extrajo la lista pre-calculada (`node.suggestions`) que encontró en cada nodo.
+
 ## Conclusiones
 
 ## Referencias 
