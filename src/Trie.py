@@ -1,11 +1,13 @@
 class Trie:
-    def __init__(self):
+    def __init__(self): # constructor
         self.root = {}
 
     def insert(self, word):
-        node = self.root
+        node = self.root 
         for char in word:
-            node = node.setdefault(char, {})
+            if char not in  node:
+                node[char] = {}
+            node = node[char]
         node["#"] = True  
 
     def search(self, word):
