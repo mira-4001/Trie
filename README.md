@@ -223,3 +223,16 @@ Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el sigu
 ## Conclusiones
 
 ## Referencias 
+- Árboles lexicográficos (o tries), Lección 17, Estructuras de Datos y Algoritmos, Universidad de Zaragoza -Ayudó a comprender el concepto de árbol de prefijos, las formas de implementarlo. https://webdiis.unizar.es/asignaturas/EDA/curso_26-27/lecciones/leccion_17.pdf 
+
+- Trie: la estructura de datos detras del autocompletado - Ayudó a comprender la definición formal del trie, su comparación con árboles binarios de búsqueda y tablas hash, y sus aplicaciones en diccionarios y corrección ortográfica. https://elsolitario.org/2026/08/17/trie-arbol-prefijos-autocompletado/
+
+-data-structures: Trie (árbol de prefijo / árbol de radix)- Ayudo a obtener ejemplos visuales de como funciona el Trie y como se implementa en codigo. https://learntutorials.net/es/data-structures/topic/7178/trie--arbol-de-prefijo---arbol-de-radix-
+
+- Tries- Ayudo a comprender de forma mas compacta el Trie y a comprender mejor su funcionamiento, a saber la complejidad y también a conocer mejor cuando usarlo.https://aprende.olimpiada-informatica.org/algoritmia-tries
+
+-Implementing Patricia Trie in Java. Sirvio para conocer a Patricia, una de las variantes de los Tries. https://www.geeksforgeeks.org/java/implementing-patricia-trie-in-java/
+
+-Prefijo. - Ayudo a conocer la definición de la palabra prefijo. https://etimologias.dechile.net/?prefijo 
+
+- Árboles trie en informática estructura y uso. - Ayudo a tener el conocimiento de por que nacio el Trie y quien lo invento. https://www.ai-futureschool.com/es/informatica/introduccion-a-los-arboles-trie-en-informatica.php
