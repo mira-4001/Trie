@@ -223,22 +223,29 @@ Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el sigu
 ## Conclusiones
 
 ## Referencias 
+
+- 5.2 Tries, Algorithms 4th Edition, Sedgewick y Wayne - Ayudó a comprender cómo se guardan los hijos de un nodo con un arreglo y cómo funciona la eliminación, ya sea quitando la marca de fin de palabra o borrando los nodos que sobran. https://algs4.cs.princeton.edu/52trie
+  
 - Árboles lexicográficos (o tries), Lección 17, Estructuras de Datos y Algoritmos, Universidad de Zaragoza -Ayudó a comprender el concepto de árbol de prefijos, las formas de implementarlo. https://webdiis.unizar.es/asignaturas/EDA/curso_26-27/lecciones/leccion_17.pdf 
 
-- Trie: la estructura de datos detras del autocompletado - Ayudó a comprender la definición formal del trie, su comparación con árboles binarios de búsqueda y tablas hash, y sus aplicaciones en diccionarios y corrección ortográfica. https://elsolitario.org/2026/08/17/trie-arbol-prefijos-autocompletado/
+- Árboles trie en informática estructura y uso. - Ayudo a tener el conocimiento de por que nacio el Trie y quien lo invento. https://www.ai-futureschool.com/es/informatica/introduccion-a-los-arboles-trie-en-informatica.php
 
 - data-structures: Trie (árbol de prefijo / árbol de radix)- Ayudo a obtener ejemplos visuales de como funciona el Trie y como se implementa en codigo. https://learntutorials.net/es/data-structures/topic/7178/trie--arbol-de-prefijo---arbol-de-radix-
 
-- Tries- Ayudo a comprender de forma mas compacta el Trie y a comprender mejor su funcionamiento, a saber la complejidad y también a conocer mejor cuando usarlo.https://aprende.olimpiada-informatica.org/algoritmia-tries
-
 - Implementing Patricia Trie in Java. Sirvio para conocer a Patricia, una de las variantes de los Tries. https://www.geeksforgeeks.org/java/implementing-patricia-trie-in-java/
 
-- Prefijo. - Ayudo a conocer la definición de la palabra prefijo. https://etimologias.dechile.net/?prefijo 
-
-- Árboles trie en informática estructura y uso. - Ayudo a tener el conocimiento de por que nacio el Trie y quien lo invento. https://www.ai-futureschool.com/es/informatica/introduccion-a-los-arboles-trie-en-informatica.php
+- Prefijo. - Ayudo a conocer la definición de la palabra prefijo. https://etimologias.dechile.net/?prefijo
   
-- Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM, 2025. Diapositivas del equipo de programación competitiva CPCFI, sin enlace público - Ayudó a comprender la definición del trie, su vista como autómata con aristas y estados, las operaciones de inserción, búsqueda y eliminación, y la complejidad en tiempo y espacio.
+- Trie: la estructura de datos detras del autocompletado - Ayudó a comprender la definición formal del trie, su comparación con árboles binarios de búsqueda y tablas hash, y sus aplicaciones en diccionarios y corrección ortográfica. https://elsolitario.org/2026/08/17/trie-arbol-prefijos-autocompletado/
+
+- Tries- Ayudo a comprender de forma mas compacta el Trie y a comprender mejor su funcionamiento, a saber la complejidad y también a conocer mejor cuando usarlo.https://aprende.olimpiada-informatica.org/algoritmia-tries
+  
 - trie (data structure), Dictionary of Algorithms and Data Structures, NIST - Ayudó a confirmar la definición del trie, donde cada prefijo común se guarda una sola vez. https://www.nist.gov/dads/HTML/trie.html
-- Trie memory, Edward Fredkin, Communications of the ACM, 1960 - Ayudó a conocer el origen del trie y quién lo propuso. https://doi.org/10.1145/367390.367400
-- 5.2 Tries, Algorithms 4th Edition, Sedgewick y Wayne - Ayudó a comprender cómo se guardan los hijos de un nodo con un arreglo y cómo funciona la eliminación, ya sea quitando la marca de fin de palabra o borrando los nodos que sobran. https://algs4.cs.princeton.edu/52trie
+
 - Time complexity of operations on built-in types, Python documentation - Ayudó a conocer que el acceso a un diccionario cuesta O(1) en promedio, que es lo que se usa para guardar los hijos con una tabla hash. https://docs.python.org/3/library/time-complexity.html
+  
+- Trie memory, Edward Fredkin, Communications of the ACM, 1960 - Ayudó a conocer el origen del trie y quién lo propuso. https://doi.org/10.1145/367390.367400
+
+- Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM, 2025. Diapositivas del equipo de programación competitiva CPCFI, sin enlace público - Ayudó a comprender la definición del trie, su vista como autómata con aristas y estados, las operaciones de inserción, búsqueda y eliminación, y la complejidad en tiempo y espacio.
+  
+
