@@ -236,3 +236,9 @@ Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el sigu
 - Prefijo. - Ayudo a conocer la definición de la palabra prefijo. https://etimologias.dechile.net/?prefijo 
 
 - Árboles trie en informática estructura y uso. - Ayudo a tener el conocimiento de por que nacio el Trie y quien lo invento. https://www.ai-futureschool.com/es/informatica/introduccion-a-los-arboles-trie-en-informatica.php
+  
+- Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM, 2025. Diapositivas del equipo de programación competitiva CPCFI, sin enlace público - Ayudó a comprender la definición del trie, su vista como autómata con aristas y estados, las operaciones de inserción, búsqueda y eliminación, y la complejidad en tiempo y espacio.
+- trie (data structure), Dictionary of Algorithms and Data Structures, NIST - Ayudó a confirmar la definición del trie, donde cada prefijo común se guarda una sola vez. https://www.nist.gov/dads/HTML/trie.html
+- Trie memory, Edward Fredkin, Communications of the ACM, 1960 - Ayudó a conocer el origen del trie y quién lo propuso. https://doi.org/10.1145/367390.367400
+- 5.2 Tries, Algorithms 4th Edition, Sedgewick y Wayne - Ayudó a comprender cómo se guardan los hijos de un nodo con un arreglo y cómo funciona la eliminación, ya sea quitando la marca de fin de palabra o borrando los nodos que sobran. https://algs4.cs.princeton.edu/52trie
+- Time complexity of operations on built-in types, Python documentation - Ayudó a conocer que el acceso a un diccionario cuesta O(1) en promedio, que es lo que se usa para guardar los hijos con una tabla hash. https://docs.python.org/3/library/time-complexity.html
