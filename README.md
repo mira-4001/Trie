@@ -107,6 +107,78 @@ Por último para hacer una demostración resolveremos el problema Leetcode 1268 
 
 
 ## Análisis de resultados
+### 1. La Estructura del Nodo (`TrieNode`)
+
+**En la teoría:**
+Cada nodo almacena dos elementos:
+1. La información de sus hijos (un arreglo o una tabla hash).
+2. Una bandera booleana que indica si en ese nodo termina una palabra.
+Usa una tabla hash que asocia cada carácter con su nodo hijo, guardando solo los que existen para ahorrar memoria.
+
+**En el código:**
+```python
+class TrieNode:
+    def __init__(self) -> None:
+        self.children: dict[str, TrieNode] = {}
+        self.suggestions: list[str] = []
+```
+*   **Correlación directa:** Se utiliza exactamente la aproximación de la tabla hash mediante un diccionario de Python (`dict[str, TrieNode]`). Esto hace que el nodo ocupe solo la memoria necesaria para las letras que realmente le siguen.
+*   **Adaptación práctica:** La "bandera booleana" de fin de palabra ha sido reemplazada por una lista `self.suggestions`. Como el objetivo del codigo es devolver hasta 3 sugerencias por prefijo, es mucho más eficiente guardar las respuestas directamente en el nodo durante la construcción del árbol, en lugar de usar una bandera booleana y tener que recorrer todo el subárbol cada vez que se hace una búsqueda.
+
+### 2. Inserción paso a paso (`insert`)
+
+**En la teoría:**
+Se explica que la inserción comienza en la raíz y recorre la palabra carácter por carácter. Si el nodo actual no tiene una arista con ese carácter, se crea un nodo nuevo. Gracias a esto, las palabras que comparten un prefijo comparten los mismos nodos.
+
+**En el código:**
+```python
+def insert(self, word: str) -> None:
+    node = self.root
+    for char in word:
+        if char not in node.children:
+            node.children[char] = TrieNode()
+        node = node.children[char]
+        
+        if len(node.suggestions) < 3:
+            node.suggestions.append(word)
+```
+*   **Correlación directa:** El bucle `for char in word:` es la representación exacta del recorrido por la cadena paso a paso. La comprobación `if char not in node.children:` es el momento en que se crean los nuevos nodos (aristas) si no existen.
+*   **El "Truco" del Autocompletado:** Mientras se baja por el árbol creando los prefijos comunes, el código inserta la palabra completa (`word`) en la lista de `suggestions` del nodo actual (limitado a 3). Esto materializa el concepto de que el trie es ideal para autocompletado, ya que pre-calcula los resultados de manera directa.
+
+### 3. Búsqueda por Prefijo (`get_suggestions`)
+
+**En la teoría:**
+La búsqueda por prefijo recorre el camino desde la raíz y que omite la comprobación final, porque basta con poder recorrer todo el prefijo para asegurar que existe al menos una palabra todas las palabras que lo completan están en el subárbol.
+
+**En el código (`leetcode1268.py`):**
+```python
+def get_suggestions(self, prefix: str) -> List[List[str]]:
+    result: List[List[str]] = []
+    node: TrieNode | None = self.root
+    
+    for char in prefix:
+        if node and char in node.children:
+            node = node.children[char]
+            result.append(node.suggestions)
+        else:
+            node = None
+            result.append([])
+            
+    return result
+```
+*   **Correlación directa:** Se recorre el prefijo ingresado `searchWord` en el contexto del problema, letra por letra. Si la arista (carácter) existe, avanzamos `node = node.children[char]`.
+*   **Optimización de Búsqueda:** En lugar de recorrer el subárbol entero para encontrar qué palabras hay debajo (lo cual aumentaría la complejidad temporal), el código simplemente extrae `node.suggestions`, que ya fueron guardadas durante la inserción. 
+*   **Manejo de prefijos inexistentes:** Si se teclea una letra que rompe el camino (`else:`), el nodo se vuelve nulo y para ese carácter (y los siguientes) simplemente se devuelven listas vacías `[]`, tal como dicta la lógica de un sistema de autocompletado real.
+
+### 4. Construcción General y Ordenamiento (`suggestedProducts`)
+
+**En el código:**
+```python
+def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+    products.sort() # <-- CRUCIAL
+    # ...
+```
+*   **Conexión con el concepto teórico:** Anteriormente se menciona que un trie almacena información basándose en alfabetos y secuencias. En el codigo, se piden las palabras ordenadas lexicográficamente(en este caso, orden alfabético). Al ordenar el arreglo inicial (`products.sort()`), nos garantizamos que cuando pasamos por un nodo y guardamos las palabras en `node.suggestions`, las primeras 3 palabras que pasen por ahí siempre serán, por defecto, las 3 menores lexicográficamente. Esta es una optimización que une el concepto de ordenamiento de cadenas con la estructura en árbol del Trie.
 
 ## Conclusiones
 
