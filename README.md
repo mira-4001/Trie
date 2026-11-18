@@ -92,6 +92,8 @@ Podemos ver que por cada nodo, guardaremos a lo mas $|\sum|$ hijos. Entonces en 
 
 Usualmente cuando se use un Trie, $|\sum|$ ya esta definido, por lo que su tamaño es constante, en estos casos tenemos una complejidad de $O(N \cdot M)$
 
+**OPERACIONES DEL TRIE**
+Los códigos de las operaciones del trie están en `src/Trie.py`
 
 Por último para hacer una demostración resolveremos el problema Leetcode 1268 - Suggestions System :)
 <!-- CREO QUE ESTO DE ACA (ANALISIS DE COMPLEJIDADES QUEDARIA MEJOR EN LA PARTE DE ANALISIS DE RESULTADOS)
