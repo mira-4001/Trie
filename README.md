@@ -220,6 +220,45 @@ Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el sigu
 2. **Filtrado dinámico:** Al teclear la letra `"u"`, los productos `"mobile"`, `"moneypot"` y `"monitor"` ya no coinciden. El Trie avanza a un nuevo subárbol donde solo se insertaron `"mouse"` y `"mousepad"`.
 3. **Eficiencia en memoria y tiempo:** Tal como se promete en la teoría, el programa no tuvo que buscar entre todos los productos de nuevo cada vez que se escribió una letra; solo extrajo la lista pre-calculada (`node.suggestions`) que encontró en cada nodo.
 
+## Rendimiento y Casos de Uso del Trie
+
+### 1. ¿Por qué el Trie es tan rápido?
+El Trie es extremadamente rápido porque elimina las comparaciones redundantes. Cuando buscas en una lista o incluso en un Árbol Binario de Búsqueda (BST), tienes que comparar la cadena completa o gran parte de ella varias veces. En un Trie cada paso que das por el árbol confirma la coincidencia de un carácter. No hay necesidad de comparar prefijos repetidamente, el camino que tomas es la confirmación de que el prefijo coincide. El acceso directo a los hijos ya sea por índice de un arreglo o por llave de un diccionario/hash permite saltar de estado en estado en tiempo constante O(1) por cada carácter.
+
+### 2. El tiempo de inserción y búsqueda solo dependen de la longitud de s y no de la longitud del diccionario
+Esto se debe a la naturaleza estructurada del árbol. Imagina que estás buscando la palabra "gato" de longitud 4 en un diccionario de un millón de palabras. 
+* En el primer paso, buscas el nodo hijo 'g' desde la raíz. No importa si hay un millón de palabras, la búsqueda de 'g' en el diccionario o arreglo del nodo raíz toma O(1). 
+* En el segundo paso, buscas 'a' desde el nodo 'g'. De nuevo, toma O(1).
+* Lo haces 4 veces, la longitud de s. 
+
+Como las ramas agrupan automáticamente todas las palabras que comparten el mismo prefijo, nunca tienes que iterar a través del resto de palabras del diccionario. Tu camino está dictado exclusivamente por las letras de la palabra s que estás insertando o buscando, resultando en un tiempo O(|s|).
+
+### 3. En dónde es malo y porqué
+El punto débil del Trie es el consumo de memoria. 
+Es malo cuando se trata de almacenar palabras largas que no comparten prefijos generando un arbol disperso. Si se implementa usando arreglos fijos para los hijos como un arreglo de 27 posiciones para las letras del abecedario español, cada nodo reserva espacio para todo el alfabeto, incluso si solo tiene un hijo. Esto genera una cantidad masiva de espacio desperdiciado en memoria. Incluso usando tablas hash, la sobrecarga de crear tantos nodos y punteros para cada letra individual de cada palabra puede ser muy superior a simplemente guardar las cadenas en una lista plana o un HashSet.
+
+### 4. Cuándo es recomendable usarlo y cuándo no
+
+**Recomendable usarlo cuando:**
+* Necesitas hacer búsquedas por prefijo como autocompletado, sugerencias de búsqueda, enrutamientos IP.
+* Quieres encontrar la coincidencia de prefijo más larga.
+* Tienes un diccionario donde las palabras comparten muchísimos prefijos.
+* Necesitas implementar correctores ortográficos o resolver juegos de palabras como Scrabble buscando ramificaciones válidas rápidamente.
+
+**NO es recomendable usarlo cuando:**
+* **Solo necesitas búsquedas exactas:** Si solo quieres saber si una palabra existe o no sin importar los prefijos, una Tabla Hash es mucho mejor, da búsquedas exactas en O(1) real y gasta mucha menos memoria.
+* **La memoria RAM es muy limitada:** El overhead de los punteros/nodos puede causar problemas de memoria.
+* **El alfabeto es enorme y variable:** Como en textos que mezclan múltiples lenguajes sin compartir raíces.
+
+### 5. ¿Por qué en el problema del código es mejor el Trie y no solo se usa otro approach?
+El problema pide devolver sugerencias de productos a medida que el usuario teclea cada carácter de una palabra de búsqueda. 
+Si usáramos otro enfoque, como iterar sobre la lista de productos por cada prefijo nuevo, el tiempo sería muy alto $O(N \cdot M)$ por cada letra tecleada. 
+Otra opción común es ordenar la lista y usar Búsqueda Binaria (`Binary Search` / `bisect`). Aunque la búsqueda binaria es buena, requiere ejecutar un algoritmo $O(\log N)$ para encontrar el inicio del prefijo por cada carácter que se escribe, y luego extraer las siguientes 3 palabras.
+
+**El Trie es superior aquí porque:**
+1. El usuario teclea letra por letra, el Trie avanza nodo por nodo por cada letra, guardando el estado. Si ya buscó "mo", para buscar "mou" solo baja un nodo más, no reinicia la búsqueda desde cero.
+2. La implementación guarda los top 3 resultados directamente en los nodos durante la inserción, al momento de buscar, la extracción de las sugerencias es instantánea O(1) por carácter tecleado. El tiempo de consulta se reduce a $O(L)$ donde L es la longitud de `searchWord`, siendo esta la forma más rápida teóricamente posible de responder a la consulta en tiempo real.
+
 ## Conclusiones
 
 ## Referencias 
