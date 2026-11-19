@@ -224,6 +224,176 @@ Al evaluar el `searchWord` ("mouse") letra por letra, el código retorna el sigu
 2. **Filtrado dinámico:** Al teclear la letra `"u"`, los productos `"mobile"`, `"moneypot"` y `"monitor"` ya no coinciden. El Trie avanza a un nuevo subárbol donde solo se insertaron `"mouse"` y `"mousepad"`.
 3. **Eficiencia en memoria y tiempo:** Tal como se promete en la teoría, el programa no tuvo que buscar entre todos los productos de nuevo cada vez que se escribió una letra; solo extrajo la lista pre-calculada (`node.suggestions`) que encontró en cada nodo.
 
+## Respecto a Trie.py
+
+### 1. Estructura Interna y Constructor (`__init__`)
+* La raíz representa la cadena vacía.
+* Cada nodo almacena dos elementos: la información de sus hijos (implementable con un arreglo de tamaño $|\Sigma|$ o con una tabla hash/diccionario) y una bandera booleana de fin de palabra.
+* Usar una tabla hash permite guardar únicamente los hijos existentes y soportar cualquier alfabeto sin desperdiciar memoria en espacios vacíos.
+
+**En el código:**
+```python
+class Trie:
+    def __init__(self): # constructor
+        self.root = {}
+```
+
+**Correlación:**
+Esta implementación lleva el enfoque de la tabla hash al extremo más limpio y compacto en Python: en lugar de crear una clase `TrieNode` separada, **cada nodo es simplemente un diccionario (`{}`)**.
+* `self.root = {}` representa exactamente la raíz (cadena vacía).
+* Las claves del diccionario son las aristas (caracteres) y sus valores son otros diccionarios que representan a los nodos hijos.
+* La bandera booleana de fin de palabra se integra dentro del mismo diccionario mediante una clave especial centinela: `"#": True`.
+
+---
+
+### 2. Inserción (`insert`)
+Se inicia en la raíz y se recorre la palabra carácter por carácter. Si no existe una arista para el carácter actual, se crea un nuevo nodo y se enlaza. Al terminar la palabra, se activa la bandera de fin de palabra en el último nodo. Las palabras con el mismo prefijo comparten los mismos nodos.
+
+**En el código:**
+```python
+def insert(self, word):
+    node = self.root
+    for char in word:
+        if char not in node:
+            node[char] = {}
+        node = node[char]
+    node["#"] = True
+```
+
+**Paso a paso:**
+1. `node = self.root`: Se coloca un puntero en la raíz.
+2. `for char in word:`: Se itera sobre cada letra de la palabra.
+3. `if char not in node: node[char] = {}`: Si la arista no existe en el diccionario actual, se crea un nuevo diccionario vacío (nuevo nodo).
+4. `node = node[char]`: Se avanza al nodo hijo correspondiente.
+5. `node["#"] = True`: Al finalizar el bucle, se marca el último nodo como final de palabra. Su complejidad temporal es $O(|s|)$, donde $|s|$ es la longitud de la palabra.
+
+---
+
+### 3. Búsqueda de Palabra Completa (`search`)
+Sigue el mismo recorrido desde la raíz. Si en algún paso falta una arista, la palabra no existe. Si se logra recorrer toda la cadena, es indispensable verificar la bandera de fin de palabra para confirmar que no es solo un prefijo de otra palabra más larga.
+**En el código:**
+```python
+def search(self, word):
+    node = self.root
+    for char in word:
+        if char not in node:
+            return False
+        node = node[char]
+    return "#" in node
+```
+
+**Paso a paso:**
+1. Recorre cada carácter desde `self.root`.
+2. Si `char not in node`, corta la ejecución de inmediato y retorna `False`.
+3. Si logra completar el recorrido, evalúa `return "#" in node`. Esto implementa la verificación estricta de la bandera: solo devolverá `True` si la palabra completa fue insertada explícitamente. Su complejidad es $O(|s|)$.
+
+---
+
+### 4. Búsqueda por Prefijo (`starts_with`)
+Es idéntica a la búsqueda normal, pero **omite la comprobación final de la bandera**, ya que poder recorrer todos los caracteres del prefijo garantiza que existe al menos una palabra almacenada que comienza con él.
+
+**En el código:**
+```python
+def starts_with(self, prefix):
+    node = self.root
+    for char in prefix:
+        if char not in node:
+            return False
+        node = node[char]
+    return True
+```
+
+**Paso a paso:**
+1. Sigue exactamente el mismo bucle que `search`.
+2. Si alguna letra del prefijo no existe en el camino, retorna `False`.
+3. Si el bucle termina sin interrupciones, retorna `True` directamente sin preguntar por `"#"`. Su complejidad es $O(|s|)$.
+
+---
+
+### 5. Eliminación (`remove`)
+Primero se recorre el camino desde la raíz; si falta una arista o el último nodo no tiene la bandera activada, la palabra no existe y no se hace nada. Si existe, se desactiva la bandera y **se regresa hacia la raíz** borrando cada nodo que ya no sea necesario. Un nodo solo se puede borrar si cumple dos condiciones: **no tiene hijos** y **no es final de otra palabra**.
+
+**En el código:**
+```python
+def remove(self, word):
+    def _delete(node, i):
+        if i == len(word):
+            if "#" not in node:
+                return False
+            del node["#"]
+            return len(node) == 0
+
+        char = word[i]
+        if char not in node:
+            return False
+
+        if _delete(node[char], i + 1):
+            del node[char]
+            return len(node) == 0
+        return False
+
+    _delete(self.root, 0)
+```
+
+**Correlación y paso a paso (Recursión y Backtracking):**
+Para poder "regresar hacia la raíz" como indica la teoría, el código utiliza una función auxiliar recursiva `_delete(node, i)`:
+1. **Caso base (`i == len(word)`):** Se llegó al final de la palabra.
+   * Si `"#"` no está en `node`, la palabra no estaba guardada (solo era prefijo) y retorna `False` para no borrar nada.
+   * Si existe, `del node["#"]` desactiva la bandera de fin de palabra.
+   * `return len(node) == 0` le indica al nodo padre si este diccionario quedó completamente vacío (sin otros hijos) y puede ser eliminado.
+2. **Descenso recursivo:** Si `char not in node`, la palabra no existe y retorna `False`. Si existe, baja al siguiente nivel con `_delete(node[char], i + 1)`.
+3. **Limpieza al regresar (Backtracking):** Si la llamada recursiva devuelve `True`, significa que el nodo hijo quedó vacío; entonces se ejecuta `del node[char]`.
+4. **Doble verificación en una sola línea:** `return len(node) == 0` verifica automáticamente las dos reglas teóricas al mismo tiempo:
+   * Si el nodo todavía tiene otros hijos (otras letras), `len(node) > 0`.
+   * Si el nodo es el final de otra palabra más corta, todavía contiene la clave `"#"`, por lo que `len(node) > 0`.
+   En cualquiera de esos casos retorna `False` y detiene la eliminación hacia arriba, protegiendo las demás palabras.
+
+---
+
+### 6. Análisis de los Resultados en Terminal
+
+Al ejecutar el bloque `# Ejemplo rápido` del final del script, la terminal imprimirá exactamente las siguientes 5 líneas:
+
+```text
+True
+False
+True
+False
+True
+```
+
+### Desglose paso a paso de lo que ocurre en memoria y en consola
+
+#### 1. Inserciones iniciales
+```python
+t = Trie()
+t.insert("algoritmo")
+t.insert("alga")
+```
+Ambas palabras comparten el prefijo `"alg"`. El Trie en memoria tiene una sola rama para `a -> l -> g`, y a partir del nodo `'g'` se bifurca en dos caminos:
+* `'o' -> 'r' -> 'i' -> 't' -> 'm' -> 'o' -> {'#': True}`
+* `'a' -> {'#': True}`
+
+#### 2. Primera salida: `print(t.search("algoritmo"))` $\rightarrow$ `True`
+El recorrido avanza por todas las letras de `"algoritmo"`. Al llegar al último diccionario (el de la `'o'`), encuentra la clave `"#": True`. Confirma que es una palabra completa guardada.
+
+#### 3. Segunda salida: `print(t.search("algo"))` $\rightarrow$ `False`
+El recorrido logra pasar por `a -> l -> g -> o`, pero el diccionario de esa `'o'` solo contiene la clave `'r'` (no tiene `"#"`). Esto demuestra en la práctica el principio teórico del `README.md`: **llegar a un nodo no significa que la palabra exista**, ya que `"algo"` es únicamente un prefijo de `"algoritmo"`.
+
+#### 4. Tercera salida: `print(t.starts_with("algo"))` $\rightarrow$ `True`
+A diferencia del paso anterior, `starts_with` solo verifica que el camino `a -> l -> g -> o` exista. Al completarlo sin errores, omite revisar `"#"` y devuelve `True`, confirmando que hay al menos una palabra que empieza con `"algo"`.
+
+#### 5. Eliminación: `t.remove("algoritmo")`
+* La recursión baja hasta la última `'o'` de `"algoritmo"` y elimina `"#"`. Como ese nodo queda vacío, devuelve `True`.
+* Al regresar (backtracking), va borrando uno por uno los nodos exclusivos de `"algoritmo"`: `'o'`, `'m'`, `'t'`, `'i'`, `'r'` y la primera `'o'`.
+* Al llegar de vuelta al nodo `'g'`, elimina la arista `'o'`. Sin embargo, el nodo `'g'` todavía contiene la clave `'a'` (necesaria para `"alga"`). Como `len(node)` es `1` (no `0`), devuelve `False` y **detiene el borrado**, conservando intactos los nodos `'a'`, `'l'` y `'g'`.
+
+#### 6. Cuarta salida: `print(t.search("algoritmo"))` $\rightarrow$ `False`
+Al buscar `"algoritmo"` nuevamente, el algoritmo llega hasta `'g'`, busca la arista `'o'` y, como fue eliminada, retorna `False` inmediatamente.
+
+#### 7. Quinta salida: `print(t.search("alga"))` $\rightarrow$ `True`
+Al buscar `"alga"`, recorre el prefijo compartido `a -> l -> g` (que sobrevivió a la eliminación), entra a `'a'` y encuentra `"#": True`. Esto confirma que la eliminación limpió la memoria innecesaria sin corromper las demás palabras del árbol.
+
 ## Rendimiento y Casos de Uso del Trie
 
 ### 1. ¿Por qué el Trie es tan rápido?
