@@ -112,7 +112,20 @@ Por último para hacer una demostración resolveremos el problema Leetcode 1268 
 
 
 ## Análisis de resultados
+### Comparación con hash y BST para búsqueda por prefijo
+## Comparación: Trie vs. Tabla Hash y BST (Búsqueda por Prefijo)
 
+| Estructura | Búsqueda por Prefijo | Memoria | Orden Alfabético |
+| :--- | :---: | :---: | :---: |
+| **Trie** | **$O(L)$** | Alta (punteros por carácter) | Nativo |
+| **Tabla Hash** | $O(N \cdot L)$ | Baja / Moderada | No soporta |
+| **BST Balanceado** | $O(L \log N + K)$ | Baja (2 punteros por nodo) | Nativo |
+
+*(Donde $N$ = palabras guardadas, $L$ = largo del prefijo y $K$ = coincidencias).*
+
+* **Trie vs. Tabla Hash:** El hash dispersa palabras con el mismo prefijo en índices distintos, obligando a revisar todas las $N$ claves una por una ($O(N \cdot L)$). El Trie agrupa los prefijos en la misma rama y llega directo en $O(L)$.
+* **Trie vs. BST:** El BST guarda palabras completas y compara cadenas desde la primera letra en cada nivel ($\log N$), además de poder desbalancearse ($O(N \cdot L)$). El Trie baja nivel por nivel sin repetir comparaciones.
+* **Desventaja del Trie:** Mayor consumo de memoria por almacenar múltiples punteros en cada nodo cuando no se comparten prefijos.
 ## En base a "Leetcode1268"
 ### 1. La Estructura del Nodo (`TrieNode`)
 
