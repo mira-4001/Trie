@@ -260,7 +260,19 @@ Otra opción común es ordenar la lista y usar Búsqueda Binaria (`Binary Search
 2. La implementación guarda los top 3 resultados directamente en los nodos durante la inserción, al momento de buscar, la extracción de las sugerencias es instantánea O(1) por carácter tecleado. El tiempo de consulta se reduce a $O(L)$ donde L es la longitud de `searchWord`, siendo esta la forma más rápida teóricamente posible de responder a la consulta en tiempo real.
 
 ## Conclusiones
+El trie cumple con el objetivo para el que fue creado es rápido sin importar el tamaño del diccionario. Las operaciones de inserción, búsqueda, búsqueda por prefijo y eliminación cuestan O(|s|), es decir, dependen solo de la longitud de la cadena procesada y no de cuántas palabras haya almacenadas. En la demostración se vio con claridad, para cada letra escrita, el programa avanzó un solo paso en el árbol sin volver a revisar la lista completa de productos.
 
+Compartir prefijos es lo que hace eficiente al trie. Como las palabras que empiezan igual comparten los mismos nodos), cada prefijo común se guarda una sola vez. Así se ahorra espacio y se facilita buscar todo lo que empieza con un mismo comienzo.
+
+La estructura interna es sencilla, pero cada decisión de diseño tiene su costo. Un nodo solo necesita saber quiénes son sus hijos y si ahí termina una palabra. Elegir entre un arreglo de tamaño fijo o una tabla hash (diccionario) para los hijos cambia el equilibrio entre velocidad y memoria. En nuestra implementación se usó un diccionario de Python, porque guarda solo los hijos que existen y no depende del tamaño del alfabeto.
+
+Se comprobó su utilidad en un caso real de autocompletado. Al resolver Leetcode, el trie devolvió las sugerencias correctas letra por letra, respetó el límite de 3 resultados y dejó listas vacías cuando el prefijo dejó de existir. Esto muestra cómo funcionan en la práctica las barras de búsqueda que sugieren mientras escribimos.
+
+El trie no es la solución para todo. Gasta bastante memoria si hay muchas palabras largas con poco en común, y no ayuda si solo se necesita saber si una clave existe exactamente. Para esos casos existen versiones comprimidas como PATRICIA, o estructuras como la tabla hash. Elegir bien depende del problema, el trie funciona especialmente  cuando las claves son secuencias y se necesitan operaciones por prefijo. 
+
+Es una idea con más de seis décadas que sigue vigente. Nació en 1959 para resolver el problema de buscar rápido con computadoras lentas y de poca memoria, y hoy está, directa o mediante sus variantes, en el autocompletado, los correctores ortográficos, el enrutamiento de internet, el DNS y los buscadores de texto. 
+
+En resumen, se alcanzó el objetivo planteado, se explicó cómo funciona el trie, cómo está construido y cuál es su complejidad, y se demostró su eficiencia en un problema de procesamiento de cadenas y autocompletado. 
 ## Referencias 
 
 - 5.2 Tries, Algorithms 4th Edition, Sedgewick y Wayne - Ayudó a comprender cómo se guardan los hijos de un nodo con un arreglo y cómo funciona la eliminación, ya sea quitando la marca de fin de palabra o borrando los nodos que sobran. https://algs4.cs.princeton.edu/52trie
