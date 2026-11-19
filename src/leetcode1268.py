@@ -1,7 +1,10 @@
 from typing import List
+
+
 class TrieNode:
     def __init__(self) -> None:
         self.children: dict[str, TrieNode] = {}
+        # Guardamos hasta 3 sugerencias directo en cada nodo para no recorrer después
         self.suggestions: list[str] = []
 
 
@@ -16,6 +19,7 @@ class Trie:
                 node.children[char] = TrieNode()
             node = node.children[char]
             
+            # Como ya ordenamos los productos, los primeros 3 que pasen por aquí son los mejores
             if len(node.suggestions) < 3:
                 node.suggestions.append(word)
 
@@ -24,10 +28,12 @@ class Trie:
         node: TrieNode | None = self.root
         
         for char in prefix:
+            # Si seguimos dentro del árbol y existe la letra, bajamos y tomamos sus sugerencias
             if node and char in node.children:
                 node = node.children[char]
                 result.append(node.suggestions)
             else:
+                # Si se rompe la coincidencia, el resto de letras ya no tendrá resultados
                 node = None
                 result.append([])
                 
@@ -36,6 +42,7 @@ class Trie:
 
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        # Ordenamos alfabéticamente para cumplir con el orden lexicográfico
         products.sort()
         
         trie = Trie()
