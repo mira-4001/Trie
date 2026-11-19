@@ -301,5 +301,5 @@ En resumen, se alcanzó el objetivo planteado, se explicó cómo funciona el tri
 
 - Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM, 2025. Diapositivas del equipo de programación competitiva CPCFI, sin enlace público - Ayudó a comprender la definición del trie, su vista como autómata con aristas y estados, las operaciones de inserción, búsqueda y eliminación, y la complejidad en tiempo y espacio.
 
-- * CPCFI: Strings (UNAM) - Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM (21 de octubre de 2025) [Presentación en PDF] - Ayudó a comprender la implementación del Trie en C++ mediante arreglos de punteros y bandera de fin de palabra, el cálculo de complejidad espacial/temporal y las operaciones de inserción, búsqueda y eliminación.
+- CPCFI: Strings (UNAM) - Trie (Prefix Tree), CPCFI Academic Team, Facultad de Ingeniería, UNAM (21 de octubre de 2025) [Presentación en PDF] - Ayudó a comprender la implementación del Trie en C++ mediante arreglos de punteros y bandera de fin de palabra, el cálculo de complejidad espacial/temporal y las operaciones de inserción, búsqueda y eliminación.
 
